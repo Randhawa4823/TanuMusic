@@ -28,7 +28,7 @@ from strings import get_string
 
 # Start command in private chat
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
-async def start_pm(client, message: Message, _):
+async def start_pm(client, message: Message):
     await add_served_user(message.from_user.id)
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
