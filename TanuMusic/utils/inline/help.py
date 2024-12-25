@@ -1,16 +1,13 @@
 from typing import Union
-
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
 from TanuMusic import app
 
-
-def help_pannel(_, START: Union[bool, int] = None):
-    first = [InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data=f"close")]
+def help_pannel(START: Union[bool, int] = None):
+    first = [InlineKeyboardButton(text="Close", callback_data="close")]
     second = [
         InlineKeyboardButton(
-            text=_["BACK_BUTTON"],
-            callback_data=f"settingsback_helper",
+            text="Back",
+            callback_data="settingsback_helper",
         ),
     ]
     mark = second if START else first
@@ -18,43 +15,43 @@ def help_pannel(_, START: Union[bool, int] = None):
         [
             [
                 InlineKeyboardButton(
-                    text=_["H_B_1"],
+                    text="Admin",
                     callback_data="help_callback hb1",
                 ),
                 InlineKeyboardButton(
-                    text=_["H_B_2"],
+                    text="Auth",
                     callback_data="help_callback hb2",
                 ),
                 InlineKeyboardButton(
-                    text=_["H_B_3"],
+                    text="Broadcast",
                     callback_data="help_callback hb3",
                 ),
             ],
             [
                 InlineKeyboardButton(
-                    text=_["H_B_4"],
+                    text="Sudo",
                     callback_data="help_callback hb4",
                 ),
                 InlineKeyboardButton(
-                    text=_["H_B_5"],
+                    text="User",
                     callback_data="help_callback hb5",
                 ),
                 InlineKeyboardButton(
-                    text=_["H_B_6"],
+                    text="Song",
                     callback_data="help_callback hb6",
                 ),
             ],
             [
                 InlineKeyboardButton(
-                    text=_["H_B_7"],
+                    text="Quotly",
                     callback_data="help_callback hb7",
                 ),
                 InlineKeyboardButton(
-                    text=_["H_B_8"],
+                    text="Sticker",
                     callback_data="help_callback hb8",
                 ),
                 InlineKeyboardButton(
-                    text=_["H_B_9"],
+                    text="Image",
                     callback_data="help_callback hb9",
                 ),
             ],
@@ -63,26 +60,24 @@ def help_pannel(_, START: Union[bool, int] = None):
     )
     return upl
 
-
-def help_back_markup(_):
+def help_back_markup():
     upl = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton(
-                    text=_["BACK_BUTTON"],
-                    callback_data=f"settings_back_helper",
+                    text="Back",
+                    callback_data="settings_back_helper",
                 ),
             ]
         ]
     )
     return upl
 
-
-def private_help_panel(_):
+def private_help_panel():
     buttons = [
         [
             InlineKeyboardButton(
-                text=_["S_B_4"],
+                text="Help and Commands",
                 url=f"https://t.me/{app.username}?start=help",
             ),
         ],
