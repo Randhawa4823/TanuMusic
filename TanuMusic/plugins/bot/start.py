@@ -88,7 +88,7 @@ async def start_pm(client, message: Message):
                          f"<b>● Username ➥</b> @{message.from_user.username}",
                 )
     else:
-        out = private_panel()  # Removed language argument
+        out = private_panel()  # Adjusted to call without arguments
         try:
             await message.reply_photo(
                 random.choice(Photos),
@@ -111,7 +111,7 @@ async def start_pm(client, message: Message):
 
 @app.on_message(filters.command(["start"]) & filters.group & ~BANNED_USERS)
 async def start_gp(client, message: Message):
-    out = start_panel()  # No language argument needed
+    out = start_panel()
     uptime = int(time.time() - _boot_)
     try:
         await message.reply_photo(
@@ -145,7 +145,7 @@ async def welcome(client, message: Message):
                 )
                 return await app.leave_chat(message.chat.id)
 
-            out = start_panel()  # No language argument needed
+            out = start_panel()
             try:
                 await message.reply_photo(
                     random.choice(Photos),
