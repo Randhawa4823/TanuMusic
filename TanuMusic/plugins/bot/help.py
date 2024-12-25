@@ -26,7 +26,7 @@ async def helper_private(
             pass
         chat_id = update.message.chat.id
         language = await get_lang(chat_id)
-        _ = get_string(language)
+        _ = get_string(pm)
         keyboard = help_pannel(_, True)
         await update.edit_message_text(
             _["help_1"].format(SUPPORT_CHAT), reply_markup=keyboard
