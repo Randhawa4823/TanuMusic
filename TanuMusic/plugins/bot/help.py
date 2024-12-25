@@ -8,8 +8,8 @@ from TanuMusic.utils import help_pannel
 from TanuMusic.utils.database import get_lang
 from TanuMusic.utils.decorators.language import LanguageStart
 from TanuMusic.utils.inline.help import help_back_markup, private_help_panel
-from config import BANNED_USERS, START_IMG_URL, SUPPORT_CHAT
-from strings import get_string, helpers
+from config import BANNED_USERS, SUPPORT_CHAT
+from strings.helpers import help_1, help_2
 from strings.image import Photos
 
 
@@ -26,10 +26,9 @@ async def helper_private(
             pass
         chat_id = update.message.chat.id
         language = await get_lang(chat_id)
-        _ = get_string("pm")
-        keyboard = help_pannel(_, True)
+        keyboard = help_pannel(language)
         await update.edit_message_text(
-            _["help_1"].format(SUPPORT_CHAT), reply_markup=keyboard
+            help_1.format(SUPPORT_CHAT), reply_markup=keyboard
         )
     else:
         try:
@@ -37,11 +36,10 @@ async def helper_private(
         except Exception:
             pass
         language = await get_lang(update.chat.id)
-        _ = get_string("pm")
-        keyboard = help_pannel(_)
+        keyboard = help_pannel(language)
         await update.reply_photo(
             random.choice(Photos),  # Randomly select an image
-            caption=_["help_1"].format(SUPPORT_CHAT),
+            caption=help_1.format(SUPPORT_CHAT),
             reply_markup=keyboard,
         )
 
@@ -50,8 +48,7 @@ async def helper_private(
 @LanguageStart
 async def help_com_group(client, message: Message, _):
     keyboard = private_help_panel(_)
-    await message.reply_text(_["help_2"], reply_markup=InlineKeyboardMarkup(keyboard))
-
+    await message.reply_text(help_2, reply_markup=InlineKeyboardMarkup(keyboard))
 
 @app.on_callback_query(filters.regex("help_callback") & ~BANNED_USERS)
 async def helper_cb(client, CallbackQuery, _):
