@@ -32,7 +32,7 @@ async def start_pm(client, message: Message):
     await add_served_user(message.from_user.id)
     
     # Define `_` to avoid the error
-    _ = get_string("en")  # Replace "en" with the default language code
+    _ = get_string("pm")  # Replace "en" with the default language code
     
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
