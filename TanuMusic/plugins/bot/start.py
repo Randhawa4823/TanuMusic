@@ -21,7 +21,7 @@ from TanuMusic.utils.database import (
 from TanuMusic.utils.formatters import get_readable_time
 from TanuMusic.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
-from strings.helpers import start_3, start_4, start_1, start_2, help_1
+from strings.helpers import start_3, start_4, start_1, start_2, start_5, help_1
 
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
