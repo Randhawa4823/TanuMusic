@@ -5,8 +5,6 @@ from pyrogram.types import InlineKeyboardMarkup, Message
 
 from TanuMusic import app
 from TanuMusic.utils import help_pannel
-from TanuMusic.utils.database import get_lang
-from TanuMusic.utils.decorators.language import LanguageStart
 from TanuMusic.utils.inline.help import help_back_markup, private_help_panel
 from config import BANNED_USERS, SUPPORT_CHAT
 from strings.helpers import help_1, help_2
@@ -25,8 +23,8 @@ async def helper_private(
         except Exception:
             pass
         chat_id = update.message.chat.id
-        language = await get_lang(chat_id)
-        keyboard = help_pannel(language)
+        # Removed language fetching, using default instead
+        keyboard = help_pannel()  # No language required
         await update.edit_message_text(
             help_1.format(SUPPORT_CHAT), reply_markup=keyboard
         )
@@ -35,8 +33,8 @@ async def helper_private(
             await update.delete()
         except Exception:
             pass
-        language = await get_lang(update.chat.id)
-        keyboard = help_pannel(language)
+        # Removed language fetching, using default instead
+        keyboard = help_pannel()  # No language required
         await update.reply_photo(
             random.choice(Photos),  # Randomly select an image
             caption=help_1.format(SUPPORT_CHAT),
@@ -45,43 +43,44 @@ async def helper_private(
 
 
 @app.on_message(filters.command(["help"]) & filters.group & ~BANNED_USERS)
-@LanguageStart
-async def help_com_group(client, message: Message, _):
-    keyboard = private_help_panel(_)
+async def help_com_group(client, message: Message):
+    # Removed language parameter, using default helper panel
+    keyboard = private_help_panel()  # No language required
     await message.reply_text(help_2, reply_markup=InlineKeyboardMarkup(keyboard))
 
+
 @app.on_callback_query(filters.regex("help_callback") & ~BANNED_USERS)
-async def helper_cb(client, CallbackQuery, _):
+async def helper_cb(client, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     cb = callback_data.split(None, 1)[1]
-    keyboard = help_back_markup(_)
+    keyboard = help_back_markup()  # No language required
     if cb == "hb1":
-        await CallbackQuery.edit_message_text(helpers.HELP_1, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_1, reply_markup=keyboard)
     elif cb == "hb2":
-        await CallbackQuery.edit_message_text(helpers.HELP_2, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_2, reply_markup=keyboard)
     elif cb == "hb3":
-        await CallbackQuery.edit_message_text(helpers.HELP_3, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_3, reply_markup=keyboard)
     elif cb == "hb4":
-        await CallbackQuery.edit_message_text(helpers.HELP_4, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_4, reply_markup=keyboard)
     elif cb == "hb5":
-        await CallbackQuery.edit_message_text(helpers.HELP_5, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_5, reply_markup=keyboard)
     elif cb == "hb6":
-        await CallbackQuery.edit_message_text(helpers.HELP_6, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_6, reply_markup=keyboard)
     elif cb == "hb7":
-        await CallbackQuery.edit_message_text(helpers.HELP_7, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_7, reply_markup=keyboard)
     elif cb == "hb8":
-        await CallbackQuery.edit_message_text(helpers.HELP_8, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_8, reply_markup=keyboard)
     elif cb == "hb9":
-        await CallbackQuery.edit_message_text(helpers.HELP_9, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_9, reply_markup=keyboard)
     elif cb == "hb10":
-        await CallbackQuery.edit_message_text(helpers.HELP_10, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_10, reply_markup=keyboard)
     elif cb == "hb11":
-        await CallbackQuery.edit_message_text(helpers.HELP_11, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_11, reply_markup=keyboard)
     elif cb == "hb12":
-        await CallbackQuery.edit_message_text(helpers.HELP_12, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_12, reply_markup=keyboard)
     elif cb == "hb13":
-        await CallbackQuery.edit_message_text(helpers.HELP_13, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_13, reply_markup=keyboard)
     elif cb == "hb14":
-        await CallbackQuery.edit_message_text(helpers.HELP_14, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_14, reply_markup=keyboard)
     elif cb == "hb15":
-        await CallbackQuery.edit_message_text(helpers.HELP_15, reply_markup=keyboard)
+        await CallbackQuery.edit_message_text(help_15, reply_markup=keyboard)
