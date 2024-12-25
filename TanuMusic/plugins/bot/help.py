@@ -37,7 +37,7 @@ async def helper_private(
         except Exception:
             pass
         language = await get_lang(update.chat.id)
-        _ = get_string(language)
+        _ = get_string("pm")
         keyboard = help_pannel(_)
         await update.reply_photo(
             random.choice(Photos),  # Randomly select an image
