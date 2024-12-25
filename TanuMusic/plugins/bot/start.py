@@ -23,17 +23,12 @@ from TanuMusic.utils.decorators.language import LanguageStart
 from TanuMusic.utils.formatters import get_readable_time
 from TanuMusic.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
-from strings import get_string
-
+from strings.helpers import start_3, start_4, start_1, start_2, help_1
 
 # Start command in private chat
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 async def start_pm(client, message: Message):
     await add_served_user(message.from_user.id)
-    
-    # Define `_` to avoid the error
-    _ = get_string("pm")  # Replace "en" with the default language code
-    
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
@@ -48,7 +43,7 @@ async def start_pm(client, message: Message):
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
-                    text=f"❖ {message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>sᴜᴅᴏʟɪsᴛ</b>.\n\n<b>● ᴜsᴇʀ ɪᴅ ➥</b> <code>{message.from_user.id}</code>\n<b>● ᴜsᴇʀɴᴀᴍᴇ ➥</b> @{message.from_user.username}",
+                    text=f"❖ {message.from_user.mention} just started the bot to check <b>sudolist</b>.\n\n<b>● User ID ➥</b> <code>{message.from_user.id}</code>\n<b>● Username ➥</b> @{message.from_user.username}",
                 )
             return
         if name[0:3] == "inf":
@@ -71,8 +66,8 @@ async def start_pm(client, message: Message):
             key = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text=_["S_B_8"], url=link),
-                        InlineKeyboardButton(text=_["S_B_9"], url=config.SUPPORT_CHAT),
+                        InlineKeyboardButton(text=_["YouTube"], url=link),
+                        InlineKeyboardButton(text=_["Support"], url=config.SUPPORT_CHAT),
                     ],
                 ]
             )
@@ -86,7 +81,7 @@ async def start_pm(client, message: Message):
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
-                    text=f"❖ {message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>ᴛʀᴀᴄᴋ ɪɴғᴏʀᴍᴀᴛɪᴏɴ</b>.\n\n<b>● ᴜsᴇʀ ɪᴅ ➥</b> <code>{message.from_user.id}</code>\n<b>● ᴜsᴇʀɴᴀᴍᴇ ➥</b> @{message.from_user.username}",
+                    text=f"❖ {message.from_user.mention} just started the bot to check <b>track information</b>.\n\n<b>● User ID ➥</b> <code>{message.from_user.id}</code>\n<b>● Username ➥</b> @{message.from_user.username}",
                 )
     else:
         out = private_panel(_)
@@ -105,7 +100,7 @@ async def start_pm(client, message: Message):
         if await is_on_off(2):
             return await app.send_message(
                 chat_id=config.LOGGER_ID,
-                text=f"❖ {message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ.\n\n<b>● ᴜsᴇʀ ɪᴅ ➥</b> <code>{message.from_user.id}</code>\n<b>● ᴜsᴇʀɴᴀᴍᴇ ➥</b> @{message.from_user.username}",
+                text=f"❖ {message.from_user.mention} just started the bot.\n\n<b>● User ID ➥</b> <code>{message.from_user.id}</code>\n<b>● Username ➥</b> @{message.from_user.username}",
             )
 
 
@@ -135,13 +130,6 @@ async def start_gp(client, message: Message, _):
 async def welcome(client, message: Message):
     for member in message.new_chat_members:
         try:
-            language = await get_lang(message.chat.id)
-            _ = get_string(language)
-            if await is_banned_user(member.id):
-                try:
-                    await message.chat.ban_member(member.id)
-                except:
-                    pass
             if member.id == app.id:
                 if message.chat.type != ChatType.SUPERGROUP:
                     await message.reply_text(_["start_4"])
