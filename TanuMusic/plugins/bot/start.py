@@ -30,6 +30,10 @@ from strings import get_string
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 async def start_pm(client, message: Message):
     await add_served_user(message.from_user.id)
+    
+    # Define `_` to avoid the error
+    _ = get_string("en")  # Replace "en" with the default language code
+    
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
@@ -101,8 +105,9 @@ async def start_pm(client, message: Message):
         if await is_on_off(2):
             return await app.send_message(
                 chat_id=config.LOGGER_ID,
-                text=f"❖ {message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ.\n\n<b>● ᴜsᴇʀ ɪᴅ ➥</b> <code>{message.from_user.id}</code>\n<b>● ᴜsᴇʀɴᴀᴍᴇ ➥</b> @{message.from_user.username}",               
+                text=f"❖ {message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ.\n\n<b>● ᴜsᴇʀ ɪᴅ ➥</b> <code>{message.from_user.id}</code>\n<b>● ᴜsᴇʀɴᴀᴍᴇ ➥</b> @{message.from_user.username}",
             )
+
 
 # Start command in group chats
 @app.on_message(filters.command(["start"]) & filters.group & ~BANNED_USERS)
@@ -123,6 +128,7 @@ async def start_gp(client, message: Message, _):
             reply_markup=InlineKeyboardMarkup(out),
         )
     return await add_served_chat(message.chat.id)
+
 
 # Welcome new chat members
 @app.on_message(filters.new_chat_members, group=-1)
